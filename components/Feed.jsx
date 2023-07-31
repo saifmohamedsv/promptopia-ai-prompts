@@ -29,9 +29,9 @@ const Feed = () => {
     const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
     return posts.filter(
       (item) =>
-        regex.test(item.creator.username) ||
-        regex.test(item.tag) ||
-        regex.test(item.prompt)
+        regex.test(item?.creator?.username) ||
+        regex.test(item?.tag) ||
+        regex.test(item?.prompt)
     );
   };
 
@@ -48,6 +48,7 @@ const Feed = () => {
     );
   };
 
+  // TODO: Handle in PromptCard
   const handleTagClick = (tagName) => {
     setSearchText(tagName);
 
@@ -82,7 +83,7 @@ const Feed = () => {
           Loading..
         </h1>
       )}
-      
+
       {/* All Prompts */}
       {searchText ? (
         <PromptCardList
