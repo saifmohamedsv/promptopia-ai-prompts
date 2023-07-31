@@ -4,11 +4,9 @@ import { connectToDB } from "@/utils/database";
 export const GET = async (request) => {
   try {
     await connectToDB();
-    console.log(request, request.url, request.searchParams);
     const prompts = await Prompt.find({}).populate("creator");
-
     return new Response(JSON.stringify(prompts), { status: 200 });
   } catch (error) {
-    return new Response("Failed to fetch all prompts", { status: 500 });
+    return new Response("[]", { status: 500 });
   }
 };

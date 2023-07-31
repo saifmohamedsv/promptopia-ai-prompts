@@ -82,6 +82,7 @@ const Feed = () => {
           Loading..
         </h1>
       )}
+      
       {/* All Prompts */}
       {searchText ? (
         <PromptCardList
