@@ -2,6 +2,7 @@
 
 import { PromptCard } from ".";
 import { useEffect, useState } from "react";
+import Loader from "./Loader";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -28,10 +29,9 @@ const Feed = () => {
     console.log(posts);
     const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
     return posts.filter(
-      (item) =>
-        regex.test(item?.creator?.username) ||
-        regex.test(item?.tag) ||
-        regex.test(item?.prompt)
+      (item) => regex.test(item?.creator?.username) || regex.test(item?.tag)
+      //  ||
+      // regex.test(item?.prompt)
     );
   };
 
@@ -48,7 +48,6 @@ const Feed = () => {
     );
   };
 
-  // TODO: Handle in PromptCard
   const handleTagClick = (tagName) => {
     setSearchText(tagName);
 
@@ -79,9 +78,9 @@ const Feed = () => {
       </form>
 
       {!posts.length && (
-        <h1 className="orange_gradient text-center text-3xl my-24">
-          Loading..
-        </h1>
+        <div className="mt-8">
+          <Loader size={120} />
+        </div>
       )}
 
       {/* All Prompts */}

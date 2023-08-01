@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import Loader from "./Loader";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -18,6 +19,21 @@ const Navbar = () => {
 
     handleSetProviders();
   }, []);
+
+  const renderProviders = providers ? (
+    Object.values(providers).map((provider) => (
+      <button
+        type="button"
+        className="black_btn"
+        key={provider.name}
+        onClick={() => signIn(provider.id)}
+      >
+        Sign in with {provider.name}
+      </button>
+    ))
+  ) : (
+    <Loader />
+  );
 
   return (
     <nav className="flex-between w-full mb-16 pt-3">
@@ -56,19 +72,7 @@ const Navbar = () => {
             </Link>
           </div>
         ) : (
-          <>
-            {providers &&
-              Object.values(providers).map((provider) => (
-                <button
-                  type="button"
-                  className="black_btn"
-                  key={provider.name}
-                  onClick={() => signIn(provider.id)}
-                >
-                  Sign In With {provider.name}
-                </button>
-              ))}
-          </>
+          <>{renderProviders}</>
         )}
       </div>
 
@@ -118,19 +122,7 @@ const Navbar = () => {
             )}
           </div>
         ) : (
-          <>
-            {providers &&
-              Object.values(providers).map((provider) => (
-                <button
-                  type="button"
-                  className="black_btn"
-                  key={provider.name}
-                  onClick={() => signIn(provider.id)}
-                >
-                  Sign in with {provider.name}
-                </button>
-              ))}
-          </>
+          <>{renderProviders}</>
         )}
       </div>
     </nav>
