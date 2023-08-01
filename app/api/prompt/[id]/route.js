@@ -30,6 +30,7 @@ export const PATCH = async (req, { params: { id } }) => {
 
     existingPrompt.prompt = updatQuery.prompt;
     existingPrompt.tag = updatQuery.tag;
+    existingPrompt.chatURL = updatQuery.chatURL;
     await existingPrompt.save();
 
     return new Response(JSON.stringify(existingPrompt), { status: 200 });

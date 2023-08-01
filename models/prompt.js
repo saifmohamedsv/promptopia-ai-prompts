@@ -1,4 +1,4 @@
-import  { Schema, model, models } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 const PromptSchema = new Schema({
   creator: {
@@ -8,6 +8,10 @@ const PromptSchema = new Schema({
   prompt: {
     type: String,
     required: [true, "Prompt is required."],
+  },
+  chatURL: {
+    type: String,
+    required: [true, "Chat url is required."],
   },
   tag: {
     type: String,

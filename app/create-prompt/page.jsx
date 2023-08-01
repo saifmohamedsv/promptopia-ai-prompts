@@ -12,27 +12,27 @@ const CreatePrompt = () => {
   const [post, setPost] = useState({
     prompt: "",
     tag: "",
+    chatURL: "",
   });
   const router = useRouter();
 
   const createPost = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     try {
       const res = await fetch("/api/prompt/new", {
         method: "POST",
         body: JSON.stringify({
           prompt: post.prompt,
-          userId: session?.user.id,
           tag: post.tag,
+          chatURL: post.chatURL,
+          userId: session?.user.id,
         }),
       });
 
       if (res.ok) {
         router.push("/");
       }
-      console.log(res);
     } catch (error) {
       console.log(error);
     } finally {

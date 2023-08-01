@@ -31,8 +31,27 @@ const Form = ({ type, post, loading, setPost, submitting, handleSubmit }) => {
 
         <label>
           <span className="font-satoshi font-semibold text-base text-gray-700">
+            Chat URL{" "}
+            <span className="text-gray-500 font-normal text-sm">
+              ( Go to chatGPT or any AI, find the chat URl, paste it ! )
+            </span>
+          </span>
+          <input
+            disabled={loading}
+            value={post.chatURL}
+            onChange={(e) => setPost({ ...post, chatURL: e.target.value })}
+            placeholder="Paste chatGPT chat URL"
+            required
+            className="form_input"
+          />
+        </label>
+
+        <label>
+          <span className="font-satoshi font-semibold text-base text-gray-700">
             Tag{" "}
-            <span className="font-normal">(#product, #idea, #software)</span>
+            <span className="text-gray-500 font-normal text-sm">
+              (#product, #idea, #software)
+            </span>
           </span>
           <input
             disabled={loading}

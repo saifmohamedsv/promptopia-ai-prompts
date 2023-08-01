@@ -15,6 +15,7 @@ const CreatePrompt = () => {
   const [post, setPost] = useState({
     prompt: "",
     tag: "",
+    chatURL: "",
   });
 
   const router = useRouter();
@@ -23,10 +24,11 @@ const CreatePrompt = () => {
     const fetchPost = async () => {
       try {
         const res = await fetch(`/api/prompt/${promptId}`, { method: "GET" });
-        const { tag, prompt } = await res.json();
+        const { tag, prompt, chatURL } = await res.json();
         setPost({
           prompt,
           tag,
+          chatURL,
         });
       } catch (error) {
         console.log(error);
@@ -48,6 +50,7 @@ const CreatePrompt = () => {
         body: JSON.stringify({
           prompt: post.prompt,
           tag: post.tag,
+          chatURL: post.chatURL,
         }),
       });
 

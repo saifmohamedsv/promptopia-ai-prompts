@@ -1,4 +1,5 @@
 "use client";
+
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -9,6 +10,7 @@ const PromptCard = ({ post, handleTagClick, handleDelete, handleEdit }) => {
   const { data: session } = useSession();
   const pathname = usePathname();
   const router = useRouter();
+
   const handleCopy = () => {
     setCopied(post.prompt);
     navigator.clipboard.writeText(post.prompt);
@@ -27,7 +29,7 @@ const PromptCard = ({ post, handleTagClick, handleDelete, handleEdit }) => {
               `/profile/${post.creator._id}?name=${post.creator.username}`
             )
           }
-          className="w-full flex-1 flex justify-start items-center gap-3 cursor-pointer"
+          className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
         >
           <Image
             src={post?.creator?.image}
@@ -40,14 +42,15 @@ const PromptCard = ({ post, handleTagClick, handleDelete, handleEdit }) => {
           />
 
           {/* classnames: width: 80% */}
-          <div className="flex flex-col w-[80%]">
+          <div className="flex flex-col">
             {/* classnames: overflow:hiddene, whtiespace-nowrapm text-overflow: ellipsis */}
             <h3
               title={post?.creator?.email}
-              className="overflow-hidden whitespace-nowrap text-ellipsis font-satoshi font-semibold text-gray-900"
+              className="font-satoshi font-semibold text-gray-900 text-md"
             >
-              {post?.creator?.email}
-              {/* {post?.creator?.email.slice(0, 15) + "..."} */}
+              {post?.creator?.email.length > 18
+                ? post?.creator?.email.slice(0, 19) + "..."
+                : post?.creator?.email}
             </h3>
             <p className="font-inter text-sm text-gray-500">
               {post?.creator?.username}
@@ -55,7 +58,7 @@ const PromptCard = ({ post, handleTagClick, handleDelete, handleEdit }) => {
           </div>
         </div>
 
-        <div className="copy_btn" onClick={handleCopy}>
+        <div className="copy_btn" title="copy prompt" onClick={handleCopy}>
           <Image
             src={
               copied === post?.prompt
@@ -68,8 +71,19 @@ const PromptCard = ({ post, handleTagClick, handleDelete, handleEdit }) => {
         </div>
       </div>
 
-      <p className="max-w-full break-words my-4 font-satoshi text-sm text-gray-700">
+      <p className="mt-4 max-w-full break-words font-satoshi text-sm text-gray-700">
         {post?.prompt}
+      </p>
+
+      <p className="font-inter my-4 text-sm orange_gradient">
+        <a
+          target="_blank"
+          href={post?.chatURL}
+          className="cursor-pointer flex items-center gap-1"
+        >
+          See full answer{" "}
+          <Image src="/assets/icons/link.svg" width={16} height={16} />
+        </a>
       </p>
 
       <p
