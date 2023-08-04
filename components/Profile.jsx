@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { PromptCard } from ".";
 import Loader from "./Loader";
 
