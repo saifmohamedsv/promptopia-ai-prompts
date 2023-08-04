@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PromptCard } from ".";
+import Loader from "./Loader";
 
 const Profile = ({ name, description, data, handleEdit, handleDelete }) => {
   return (
@@ -10,16 +11,7 @@ const Profile = ({ name, description, data, handleEdit, handleDelete }) => {
       <p className="desc text-left">{description}</p>
 
       <div className="mt-10 prompt_layout">
-        {!data.length && (
-          <p className="desc text-left">
-            You've no prompts yet or prompt is being loaded. Feel free to
-            <Link className="blue_gradient" href={"/create-prompt"}>
-              {" "}
-              create
-            </Link>{" "}
-            one.
-          </p>
-        )}
+        {!data.length && <Loader />}
 
         {data?.map((prompt) => (
           <PromptCard
